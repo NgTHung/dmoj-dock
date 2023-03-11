@@ -5,7 +5,7 @@ volumes:
 
 services:
   - mysql:
-      tag: latest
+      tag: 5.6
       volumes:
         - name: mysql_vol
           mount: /var/lib/mysql/
