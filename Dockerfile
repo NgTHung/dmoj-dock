@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:latest
 
 # Install required packages and remove apt cache when done.
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   libxml2-dev \
   libxslt1-dev \
   make \
-  mysql-client \
+  default-mysql-client \
   nano \
   nginx \
   openssl \
@@ -36,7 +36,7 @@ RUN pip3 install --no-cache-dir --no-cache-dir -U pip setuptools
 RUN pip3 install --no-cache-dir uwsgi
 
 # Get nodejs and install packages
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get install -y nodejs
 RUN npm install -g --unsafe-perm=true phantomjs-prebuilt postcss postcss-cli autoprefixer sass
 
@@ -78,11 +78,11 @@ RUN mkdir -p /problems/problems
 # Install wait, as docker-entry depends on it
 ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.5.0/wait /wait
 RUN chmod +x /wait
-
 # Install docker-entry
 COPY docker-entry /site
 
 # Generate styles
+RUN chmod +x /site/make_style.sh
 RUN /site/make_style.sh
 
 EXPOSE 80
