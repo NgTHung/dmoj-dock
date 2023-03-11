@@ -1,0 +1,16 @@
+
+volumes:
+  - name:  problems
+    mount: /problems/
+
+services:
+  - mysql:
+      tag: latest
+      volumes:
+        - name: mysql_vol
+          mount: /var/lib/mysql/
+      envs:
+        - MYSQL_ROOT_PASSWORD: thie199299
+        - MYSQL_DATABASE: dmoj
+        - MYSQL_USER: dmoj
+        - MYSQL_PASSWORD: tuanhungag1
